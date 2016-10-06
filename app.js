@@ -25,27 +25,6 @@ function Product(imageName, filePath) {
   allProductImages.push(this);
 }
 
-new Product ('Bag', 'img/bag_480.jpg');
-new Product ('Banana', 'img/banana.jpg');
-new Product ('Bathroom', 'img/bathroom.jpg');
-new Product ('Boots', 'img/boots.jpg');
-new Product ('Breakfast', 'img/breakfast.jpg');
-new Product ('Bubblegum', 'img/bubblegum.jpg');
-new Product ('Chair', 'img/chair.jpg');
-new Product ('Cthulhu', 'img/cthulhu.jpg');
-new Product ('Dog Duck', 'img/dog-duck.jpg');
-new Product ('Dragon', 'img/dragon.jpg');
-new Product ('Pen', 'img/pen.jpg');
-new Product ('Pet Sweep', 'img/pet-sweep.jpg');
-new Product ('Scissors', 'img/scissors.jpg');
-new Product ('Shark', 'img/shark.jpg');
-new Product ('Baby Sweep', 'img/sweep.png');
-new Product ('Tauntaun', 'img/tauntaun.jpg');
-new Product ('Unicorn', 'img/unicorn.jpg');
-new Product ('USB', 'img/usb.gif');
-new Product ('Water Can', 'img/water-can.jpg');
-new Product ('Wine Glass', 'img/wine-glass.jpg');
-
 //function declarations
 
 function showData() {
@@ -56,8 +35,6 @@ function showData() {
     dataArrayVotes.push(storeClicks);
   }
 };
-
-displayPics();
 
 function displayPics() {
   var randomIndex = function() {
@@ -106,6 +83,7 @@ function handleUserClick() {
       allProductImages[i].numberTimesClicked += 1;
     }
   }
+  storeData();
 };
 
 function handleDisplayResults() {
@@ -194,6 +172,43 @@ function drawChart() {
     }
   });
 };
+
+function storeData(){
+  console.log('storeData');
+  var allProductImagesStringified = JSON.stringify(allProductImages);
+  localStorage.setItem('allProductImagesStringified', allProductImagesStringified);
+}
+
+if (localStorage.getItem('allProductImagesStringified')){
+  var allProductImagesRetrieved = localStorage.getItem('allProductImagesStringified');
+  var allProductImagesParsed = JSON.parse(allProductImagesRetrieved);
+  console.log(allProductImagesRetrieved);
+  console.log(allProductImagesParsed);
+  allProductImages = allProductImagesParsed;
+} else {
+  new Product ('Bag', 'img/bag_480.jpg');
+  new Product ('Banana', 'img/banana.jpg');
+  new Product ('Bathroom', 'img/bathroom.jpg');
+  new Product ('Boots', 'img/boots.jpg');
+  new Product ('Breakfast', 'img/breakfast.jpg');
+  new Product ('Bubblegum', 'img/bubblegum.jpg');
+  new Product ('Chair', 'img/chair.jpg');
+  new Product ('Cthulhu', 'img/cthulhu.jpg');
+  new Product ('Dog Duck', 'img/dog-duck.jpg');
+  new Product ('Dragon', 'img/dragon.jpg');
+  new Product ('Pen', 'img/pen.jpg');
+  new Product ('Pet Sweep', 'img/pet-sweep.jpg');
+  new Product ('Scissors', 'img/scissors.jpg');
+  new Product ('Shark', 'img/shark.jpg');
+  new Product ('Baby Sweep', 'img/sweep.png');
+  new Product ('Tauntaun', 'img/tauntaun.jpg');
+  new Product ('Unicorn', 'img/unicorn.jpg');
+  new Product ('USB', 'img/usb.gif');
+  new Product ('Water Can', 'img/water-can.jpg');
+  new Product ('Wine Glass', 'img/wine-glass.jpg');
+}
+
+displayPics();
 
 //event listeners
 imageContainer.addEventListener('click', handleUserClick);
